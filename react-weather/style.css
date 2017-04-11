@@ -1,0 +1,30 @@
+gulp.task('sass', function (){
+   gulp.src('./sass/main.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(concat('style.css'))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('serve', function(done){
+   gulp.src('')
+    .pipe(server({
+        livereload: {
+            enable: true,
+                filter: function(filePath, cb) {
+                    if (/main.js/.test(filePath)) {
+                        cb(true)
+                    }
+                    else if (/style.csss/.test(filepath)) {
+                        cb(true)
+                    }
+            }
+        },
+        open: true
+    }));
+});
+
+gulp.task('watch', function (){
+   gulp.watch('./sass/**/*.scss', ['sass']); 
+});
+
+gulp.task('default', ['build', 'serve', 'sass', 'watch']);
